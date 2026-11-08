@@ -1,0 +1,16 @@
+﻿# Maya scene files (large; keep backups elsewhere)
+scenes/
+*.ma
+*.mb
+*.abc
+
+# Rendered images
+renders/
+images/
+
+# Python
+__pycache__/
+*.pyc
+
+# Windows
+Thumbs.db
