@@ -13,22 +13,21 @@ It is built one stage at a time, and every stage ends with a saved scene and an 
 6. Wind: sine-wave branch sway, orange swing and leaf flutter, all keyframed
 7. Physics engine: gravity, quadratic air drag, wind and RK4 integration
 8. Fall simulation: 8 oranges detach at the peak of the swing, fly, bounce, spin, roll and settle
-9. Environment and camera: in progress (ground material done)
-10. Final render: planned
+9. Environment and camera: Arnold materials (ground, bark, leaves), grass, sky and sun, animated camera
+10. Final production: preflight checks, cinema render settings and command-line rendering (in progress: fixing the lighting before the full render)
 
 ## Files
 
 - `orange_physics.py`: the physics engine (`Body`, `simulate`, `make_wind`)
 - `orange_ground.py`: ground contact with restitution, friction and rolling
 - `maya_git.py`: commit and push from the Maya Script Editor
-- `scripts/`: one script per step
+- `scripts/`: one script per step, session runners (`open_best_scene.py`, `rebuild_stage9.py`, `finish_stage9.py`) and render tools (`.ps1` files)
 - `tree_data.json`, `fall_plan.json`: saved settings and plans
-- Scene files are not stored here because they are large
+- Scene files and renders are not stored here because they are large
 
-## Starting a new Maya session
+## Lessons learned
 
-In the Script Editor (Python tab) run:
-
-    exec(open('C:/MayaScripts/OrangeTree/scripts/restore_session.py').read())
-
-This opens the latest scene and restores the tree settings.
+- Maya may reopen an old scene after a restart, so open the latest complete scene before running any step.
+- Bounding boxes of rotated objects are only approximate in Maya, so measure real vertex positions when precision matters.
+- Lights should be members of `defaultLightSet`; `scripts/diag_inspect.py` prints the member count.
+- Arnold draws unsupported Maya shader nodes black.
